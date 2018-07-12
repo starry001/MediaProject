@@ -9,7 +9,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.SurfaceHolder;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class CameraManger {
             camera.autoFocus(autoFocusCallback);
 
         } catch (Exception e) {
-//                e.printStackTrace();
+                e.printStackTrace();
             camera.release();
             camera = null;
         }
@@ -130,7 +129,7 @@ public class CameraManger {
             }
             camera.startPreview();//开始预览
             cameraPosition = Camera.CameraInfo.CAMERA_FACING_FRONT;
-//            DataUtils.isBackCamera = false;
+            DataUtils.isBackCamera = false;
         } else if (cameraPosition == Camera.CameraInfo.CAMERA_FACING_FRONT) {
             //代表摄像头的方位，CAMERA_FACING_FRONT前置
             // CAMERA_FACING_BACK后置
@@ -149,7 +148,7 @@ public class CameraManger {
             }
             camera.startPreview();//开始预览
             cameraPosition = Camera.CameraInfo.CAMERA_FACING_BACK;
-//            DataUtils.isBackCamera = true;
+            DataUtils.isBackCamera = true;
         }
     }
 
@@ -195,11 +194,11 @@ public class CameraManger {
 
         parameters.setFocusAreas(areas);
         try {
-            //本人使用的小米手机在设置聚焦区域的时候经常会出异常，看日志发现是框架层的字符串转int的时候出错了，
+            //小米手机在设置聚焦区域的时候经常会出异常，日志发现是框架层的字符串转int的时候出错了，
             //目测是小米修改了框架层代码导致，在此try掉，对实际聚焦效果没影响
             camera.setParameters(parameters);
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -239,13 +238,13 @@ public class CameraManger {
                                 }
                             }
                         } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 }, null, pictureCallback);
             }catch (Exception e){
-                Toast.makeText(context,"拍照出现异常，请退出重新进入拍照",Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
             }
-
         }
     }
 

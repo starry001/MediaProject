@@ -14,11 +14,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+@SuppressWarnings("deprecation")
 public class ImageUtils {
     private static final int MEDIA_TYPE_IMAGE = 1;
     private static final int MEDIA_TYPE_VIDEO = 2;
 
-    // save image to sdcard path: Pictures/MyTestImage/
     public static void saveImageData(byte[] imageData) {
         File imageFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
         if (imageFile == null) {
@@ -35,7 +35,7 @@ public class ImageUtils {
 
     private static File getOutputMediaFile(int type) {
         File imageFileDir =
-                new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyTestImage");
+                new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Image");
         if (!imageFileDir.exists()) {
             if (!imageFileDir.mkdirs()) {
                 return null;
@@ -57,9 +57,7 @@ public class ImageUtils {
     /**
      * 获得最接近频幕宽度的尺寸
      *
-     * @param sizeList
      * @param n        放大几倍 （>0)
-     * @return
      */
     public static Camera.Size getCurrentScreenSize(Activity context, List<Camera.Size> sizeList, int n) {
         if (sizeList != null && sizeList.size() > 0) {

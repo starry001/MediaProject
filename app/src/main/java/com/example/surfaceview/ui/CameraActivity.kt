@@ -3,12 +3,11 @@ package com.example.surfaceview.ui
 import android.graphics.ImageFormat
 import android.hardware.Camera
 import android.os.Bundle
+import android.renderscript.RenderScript
 import android.support.v7.app.AppCompatActivity
 import android.view.Surface
 import android.view.SurfaceHolder
 import com.example.surfaceview.R
-import com.example.surfaceview.R.id.camera_surface
-import com.example.surfaceview.R.id.stop_camera
 import com.example.surfaceview.util.ImageUtils
 import com.example.surfaceview.util.logger
 import kotlinx.android.synthetic.main.activity_camera.*
@@ -28,7 +27,7 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
     }
 
     override fun surfaceDestroyed(p0: SurfaceHolder?) {
-
+        releaseCamera()
     }
 
     override fun surfaceCreated(p0: SurfaceHolder?) {
@@ -40,11 +39,13 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
     }
 
     private fun openCamera(holder: SurfaceHolder?) {
+        RenderScript.create(this)
         camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK)
         cameraParam = camera.parameters
         setCameraDisplayOrientation(this, Camera.CameraInfo.CAMERA_FACING_BACK, camera)
         cameraParam.run {
             jpegQuality = 80
+            set("rotation", 90)
             focusMode = Camera.Parameters.FOCUS_MODE_AUTO
             sceneMode = Camera.Parameters.SCENE_MODE_AUTO
             val supportedPreviewSizes = cameraParam.supportedPreviewSizes
@@ -55,8 +56,8 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
 
             setPreviewSize(previewSize.width, previewSize.height)
             setPictureSize(pictureSize.width, pictureSize.height)
-            previewFormat = imageFormat
-            focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO
+//            previewFormat = imageFormat
+            pictureFormat = ImageFormat.JPEG
         }
         camera.run {
             parameters = cameraParam
@@ -99,10 +100,10 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
                 logger("releaseCamera", e.message ?: "")
             }
         }
+        holder.surface.release()
     }
 
     override fun onPreviewFrame(p0: ByteArray?, p1: android.hardware.Camera?) {
-//        ImageUtils.saveImageData(p0)
         camera.addCallbackBuffer(p0)
     }
 
@@ -112,23 +113,17 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
 
         initParam()
 
-        stop_camera.setOnClickListener {
+        take_photo.setOnClickListener {
             try {
                 camera.takePicture(null, null, object : Camera.PictureCallback {
                     override fun onPictureTaken(p0: ByteArray?, p1: Camera?) {
-                        logger("onPictureTaken")
                         ImageUtils.saveImageData(p0)
                     }
                 })
             } catch (e: Exception) {
-                logger("111", e.message ?: "null")
+                logger("takePicture", e.message ?: "null")
             }
         }
-    }
-
-    override fun onDestroy() {
-        releaseCamera()
-        super.onDestroy()
     }
 
     private fun initParam() {
