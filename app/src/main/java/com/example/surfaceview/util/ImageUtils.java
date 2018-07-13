@@ -16,8 +16,8 @@ import java.util.Locale;
 
 @SuppressWarnings("deprecation")
 public class ImageUtils {
-    private static final int MEDIA_TYPE_IMAGE = 1;
-    private static final int MEDIA_TYPE_VIDEO = 2;
+    public static final int MEDIA_TYPE_IMAGE = 1;
+    public static final int MEDIA_TYPE_VIDEO = 2;
 
     public static void saveImageData(byte[] imageData) {
         File imageFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
@@ -33,7 +33,7 @@ public class ImageUtils {
         }
     }
 
-    private static File getOutputMediaFile(int type) {
+    public static File getOutputMediaFile(int type) {
         File imageFileDir =
                 new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Image");
         if (!imageFileDir.exists()) {

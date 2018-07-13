@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.example.surfaceview.R;
-import com.example.surfaceview.util.CameraManger;
+import com.example.surfaceview.util.Camera1Manager;
 import com.example.surfaceview.util.DataUtils;
 import com.example.surfaceview.view.FocusView;
 
@@ -144,7 +144,7 @@ public class CustomCameraActivity extends Activity implements View.OnClickListen
                     float endDis = spacing(event);
                     int scale = (int) ((endDis - startDis) / 10f);
                     if (scale >= 1 || scale <= -1) {
-                        CameraManger.getInstance().setCameraZoom(scale);
+                        Camera1Manager.getInstance().setCameraZoom(scale);
                         startDis = endDis;
                     }
                 }
@@ -152,9 +152,9 @@ public class CustomCameraActivity extends Activity implements View.OnClickListen
             case MotionEvent.ACTION_UP:
                 if (mode == MODE_INIT) {
                     point = new Point((int) event.getX(), (int) event.getY());
-                    isTouch = CameraManger.getInstance().setCameraFocusAreas(point);
+                    isTouch = Camera1Manager.getInstance().setCameraFocusAreas(point);
                     if (isTouch) {
-                        CameraManger.getInstance().setCameraAutoFocus(CustomCameraActivity.this);
+                        Camera1Manager.getInstance().setCameraAutoFocus(CustomCameraActivity.this);
                     }
                 }
                 break;
@@ -254,10 +254,10 @@ public class CustomCameraActivity extends Activity implements View.OnClickListen
             case R.id.takePhoto:
                 //锁定焦点
                 //拍照
-                CameraManger.getInstance().takePicture(CustomCameraActivity.this, CustomCameraActivity.this);
+                Camera1Manager.getInstance().takePicture(CustomCameraActivity.this, CustomCameraActivity.this);
                 break;
             case R.id.reTakePhoto:
-                CameraManger.getInstance().startPreview();
+                Camera1Manager.getInstance().startPreview();
                 takePhotoBtn.setVisibility(View.VISIBLE);
                 surePhotoBtn.setVisibility(View.GONE);
                 backBtn.setVisibility(View.VISIBLE);
@@ -266,11 +266,11 @@ public class CustomCameraActivity extends Activity implements View.OnClickListen
             case R.id.surePhoto:
                 destroyCamera();
                 setResult(RESULT_OK);
-                CameraManger.getInstance().closeShutterSound();
+                Camera1Manager.getInstance().closeShutterSound();
                 finish();
                 break;
             case R.id.cameraSwap:
-                CameraManger.getInstance().turnCamera(holder, CustomCameraActivity.this, getPreviewDegree(), screenWidth, screenHeight);
+                Camera1Manager.getInstance().turnCamera(holder, CustomCameraActivity.this, getPreviewDegree(), screenWidth, screenHeight);
                 break;
             default:
                 break;
@@ -309,7 +309,7 @@ public class CustomCameraActivity extends Activity implements View.OnClickListen
 
     @Override
     public void onPictureTaken(byte[] data, Camera camera) {
-        CameraManger.getInstance().stopPreview();
+        Camera1Manager.getInstance().stopPreview();
         //将拍摄到的照片给自定义的对象
         DataUtils.tempImageData = data;
         takePhotoBtn.setVisibility(View.GONE);
@@ -323,12 +323,12 @@ public class CustomCameraActivity extends Activity implements View.OnClickListen
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
-            CameraManger.getInstance().openCamera(holder, CustomCameraActivity.this, getPreviewDegree());
+            Camera1Manager.getInstance().openCamera(holder, CustomCameraActivity.this, getPreviewDegree());
         }
 
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            CameraManger.getInstance().setCameraParameters(screenWidth, screenHeight);
+            Camera1Manager.getInstance().setCameraParameters(screenWidth, screenHeight);
         }
 
         @Override
@@ -338,7 +338,7 @@ public class CustomCameraActivity extends Activity implements View.OnClickListen
     }
 
     private void destroyCamera() {
-        CameraManger.getInstance().destroyCamera();
+        Camera1Manager.getInstance().destroyCamera();
         holder.getSurface().release();
         surfaceView = null;
     }

@@ -22,6 +22,8 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
     private lateinit var holder: SurfaceHolder
     private lateinit var cameraParam: Camera.Parameters
 
+    private var cameraPosition = 0
+
     override fun surfaceChanged(p0: SurfaceHolder?, p1: Int, p2: Int, p3: Int) {
 
     }
@@ -40,9 +42,15 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
 
     private fun openCamera(holder: SurfaceHolder?) {
         RenderScript.create(this)
+        cameraPosition = Camera.CameraInfo.CAMERA_FACING_BACK
         camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK)
-        cameraParam = camera.parameters
-        setCameraDisplayOrientation(this, Camera.CameraInfo.CAMERA_FACING_BACK, camera)
+
+        setUpParams(camera, cameraPosition)
+    }
+
+    private fun setUpParams(mCamera: Camera, pos: Int) {
+        cameraParam = mCamera.parameters
+        setCameraDisplayOrientation(pos, mCamera)
         cameraParam.run {
             jpegQuality = 80
             set("rotation", 90)
@@ -56,10 +64,9 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
 
             setPreviewSize(previewSize.width, previewSize.height)
             setPictureSize(pictureSize.width, pictureSize.height)
-//            previewFormat = imageFormat
             pictureFormat = ImageFormat.JPEG
         }
-        camera.run {
+        mCamera.run {
             parameters = cameraParam
             setPreviewDisplay(holder)
             setPreviewCallback(this@CameraActivity)
@@ -67,18 +74,11 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
         }
     }
 
-    private fun setCameraDisplayOrientation(context: CameraActivity, cameraId: Int, mCamera: Camera) {
+    private fun setCameraDisplayOrientation(cameraId: Int, mCamera: Camera) {
         val info = Camera.CameraInfo()
         Camera.getCameraInfo(cameraId, info)
-        var degrees = 0
 
-        val rotation = context.windowManager.defaultDisplay.rotation
-        when (rotation) {
-            Surface.ROTATION_0 -> degrees = 0
-            Surface.ROTATION_90 -> degrees = 90
-            Surface.ROTATION_180 -> degrees = 180
-            Surface.ROTATION_270 -> degrees = 270
-        }
+        val degrees = getRotateDegree()
 
         var displayDegree: Int
         if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
@@ -88,6 +88,18 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
             displayDegree = (info.orientation - degrees + 360) % 360
         }
         mCamera.setDisplayOrientation(displayDegree)
+    }
+
+    fun getRotateDegree(): Int {
+        val rotation = windowManager.defaultDisplay.rotation
+        var degrees = 0
+        when (rotation) {
+            Surface.ROTATION_0 -> degrees = 0
+            Surface.ROTATION_90 -> degrees = 90
+            Surface.ROTATION_180 -> degrees = 180
+            Surface.ROTATION_270 -> degrees = 270
+        }
+        return degrees
     }
 
     private fun releaseCamera() {
@@ -111,8 +123,9 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
 
-        initParam()
+        initSurfaceHolder()
 
+        //拍照
         take_photo.setOnClickListener {
             try {
                 camera.takePicture(null, null, object : Camera.PictureCallback {
@@ -124,9 +137,30 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
                 logger("takePicture", e.message ?: "null")
             }
         }
+
+        //反转摄像头
+        reserve_camera.setOnClickListener {
+            camera.run {
+                stopPreview()
+                release()
+            }
+            if (cameraPosition == Camera.CameraInfo.CAMERA_FACING_BACK) {
+                camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT)
+                cameraPosition = Camera.CameraInfo.CAMERA_FACING_FRONT
+            } else {
+                camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK)
+                cameraPosition = Camera.CameraInfo.CAMERA_FACING_BACK
+            }
+            setUpParams(camera, cameraPosition)
+        }
+
+        //重拍
+        retake.setOnClickListener {
+            camera.startPreview()
+        }
     }
 
-    private fun initParam() {
+    private fun initSurfaceHolder() {
         holder = camera_surface.holder
         holder.run {
             addCallback(this@CameraActivity)

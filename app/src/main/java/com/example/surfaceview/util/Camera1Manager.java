@@ -17,8 +17,8 @@ import java.util.Comparator;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class CameraManger {
-    private static CameraManger instance;
+public class Camera1Manager {
+    private static Camera1Manager instance;
     private Camera camera;
     private MediaPlayer mShootSound;
 
@@ -28,13 +28,13 @@ public class CameraManger {
 
     private int cameraPosition;
 
-    private CameraManger() {
+    private Camera1Manager() {
 
     }
 
-    public static CameraManger getInstance() {
+    public static Camera1Manager getInstance() {
         if (instance == null) {
-            instance = new CameraManger();
+            instance = new Camera1Manager();
         }
         return instance;
     }

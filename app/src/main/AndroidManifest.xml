@@ -31,7 +31,8 @@
         <activity android:name=".ui.SurfaceActivity" />
         <activity android:name=".ui.AudioActivity" />
         <activity android:name=".ui.CameraActivity" />
-        <activity android:name=".ui.CustomCameraActivity"></activity>
+        <activity android:name=".ui.CustomCameraActivity" />
+        <activity android:name=".ui.Camera2Activity"></activity>
     </application>
 
 </manifest>

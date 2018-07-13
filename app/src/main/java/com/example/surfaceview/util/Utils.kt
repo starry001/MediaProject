@@ -7,7 +7,7 @@ import android.os.Build
 import android.text.TextUtils
 import java.lang.Exception
 
-class Utils {
+object Utils {
     fun isSupportCamera2(context: Context): Boolean {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {
             return false

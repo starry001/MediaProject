@@ -27,5 +27,10 @@ class IndexActivity : AppCompatActivity() {
             mIntent = Intent(this@IndexActivity, CameraActivity::class.java)
             startActivity(mIntent)
         }
+
+        camera2.setOnClickListener {
+            mIntent = Intent(this@IndexActivity, Camera2Activity::class.java)
+            startActivity(mIntent)
+        }
     }
 }

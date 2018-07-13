@@ -28,5 +28,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="camera" />
+
+        <Button
+            android:id="@+id/camera2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="camera2" />
     </LinearLayout>
 </ScrollView>
