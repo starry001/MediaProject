@@ -2,18 +2,17 @@ package com.example.surfaceview.ui
 
 import android.graphics.ImageFormat
 import android.hardware.Camera
-import android.os.Bundle
 import android.renderscript.RenderScript
-import android.support.v7.app.AppCompatActivity
 import android.view.Surface
 import android.view.SurfaceHolder
 import com.example.surfaceview.R
+import com.example.surfaceview.base.BaseActivity
 import com.example.surfaceview.util.ImageUtils
 import com.example.surfaceview.util.logger
 import kotlinx.android.synthetic.main.activity_camera.*
 
 @Suppress("DEPRECATION")
-class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hardware.Camera.PreviewCallback {
+class CameraActivity : BaseActivity(), SurfaceHolder.Callback, android.hardware.Camera.PreviewCallback {
     private val width = 1280
     private val height = 720
     private val imageFormat = ImageFormat.YV12
@@ -119,12 +118,9 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
         camera.addCallbackBuffer(p0)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_camera)
+    override fun layoutId(): Int  = R.layout.activity_camera
 
-        initSurfaceHolder()
-
+    override fun initListener() {
         //拍照
         take_photo.setOnClickListener {
             try {
@@ -158,6 +154,10 @@ class CameraActivity : AppCompatActivity(), SurfaceHolder.Callback, android.hard
         retake.setOnClickListener {
             camera.startPreview()
         }
+    }
+
+    override fun initData() {
+        initSurfaceHolder()
     }
 
     private fun initSurfaceHolder() {

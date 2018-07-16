@@ -1,19 +1,16 @@
 package com.example.surfaceview.ui
 
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import com.example.surfaceview.R
+import com.example.surfaceview.base.BaseActivity
 import com.example.surfaceview.util.WindEar
 import com.example.surfaceview.util.showToast
 import kotlinx.android.synthetic.main.activity_audio.*
 
-class AudioActivity : AppCompatActivity() ,WindEar.OnState{
-    private val tag = AudioActivity::class.java.simpleName
+class AudioActivity : BaseActivity() ,WindEar.OnState{
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_audio)
+    override fun layoutId(): Int  = R.layout.activity_audio
 
+    override fun initListener() {
         WindEar.getInstance().setOnStateListener(this)
         WindEar.init()
 
@@ -36,7 +33,11 @@ class AudioActivity : AppCompatActivity() ,WindEar.OnState{
         }
     }
 
+    override fun initData() {
+
+    }
+
     override fun onStateChanged(currentState: WindEar.WindState?) {
-//        Log.e(tag,"currentState : $currentState")
+
     }
 }

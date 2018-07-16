@@ -1,16 +1,14 @@
 package com.example.surfaceview.ui
 
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import com.example.surfaceview.R
+import com.example.surfaceview.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_surface.*
 
-class SurfaceActivity : AppCompatActivity() {
+class SurfaceActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_surface)
+    override fun layoutId(): Int = R.layout.activity_surface
 
+    override fun initListener() {
         stop.setOnClickListener {
             surfaceView.stopDraw()
         }
@@ -18,5 +16,9 @@ class SurfaceActivity : AppCompatActivity() {
         start.setOnClickListener {
             surfaceView.startDraw()
         }
+    }
+
+    override fun initData() {
+
     }
 }

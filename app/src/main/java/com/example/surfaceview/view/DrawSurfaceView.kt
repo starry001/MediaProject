@@ -46,10 +46,10 @@ class DrawSurfaceView
         mThread.isRun = false
     }
 
-    private class MyThread(holder: SurfaceHolder, bitmap: Bitmap) : Thread() {
+    private class MyThread(holder: SurfaceHolder?, bitmap: Bitmap) : Thread() {
         var isRun = false
-        val mHolder: SurfaceHolder = holder
-        lateinit var canvas: Canvas
+        val mHolder: SurfaceHolder? = holder
+        var canvas: Canvas? = null
         val mBitmap: Bitmap = bitmap
         val matrix = Matrix()
         override fun run() {
@@ -57,19 +57,19 @@ class DrawSurfaceView
             val p = Paint()
             while (isRun) {
                 try {
-                    canvas = mHolder.lockCanvas(Rect(0, 0, 300, 300))
+                    canvas = mHolder?.lockCanvas(Rect(0, 0, 300, 300))
                     //设置旋转角度
                     rotate += 48.0F
                     matrix.postRotate(rotate % 360.0F, mBitmap.width / 2.0F, mBitmap.height / 2.0F)
                     //设置左边距和上边距
                     matrix.postTranslate(0.0F, 0.0F)
-                    canvas.drawBitmap(mBitmap, matrix, p)
+                    canvas?.drawBitmap(mBitmap, matrix, p)
 
                     Thread.sleep(1000)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {
-                    mHolder.unlockCanvasAndPost(canvas)
+                    mHolder?.unlockCanvasAndPost(canvas)
                 }
             }
         }

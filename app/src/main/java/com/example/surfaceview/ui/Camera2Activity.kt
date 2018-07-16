@@ -17,17 +17,18 @@ import android.util.SparseArray
 import android.view.Surface
 import android.view.TextureView
 import android.view.View
-import android.widget.Button
 import com.example.surfaceview.R
+import com.example.surfaceview.base.BaseActivity
 import com.example.surfaceview.util.ImageUtils
 import com.example.surfaceview.util.Utils
 import com.example.surfaceview.util.logger
+import kotlinx.android.synthetic.main.activity_camera2.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
 
-class Camera2Activity : AppCompatActivity() {
+class Camera2Activity : BaseActivity() {
     private val STATE_PREVIEW = 0
     private val STATE_WAITING_LOCK = 1
     private val STATE_WAITING_PRE_CAPTURE = 2
@@ -40,7 +41,6 @@ class Camera2Activity : AppCompatActivity() {
     //摄像头ID（通常0代表后置摄像头，1代表前置摄像头
     private lateinit var mCameraId: String
     private lateinit var mCameraManager: CameraManager
-    private lateinit var textureView: TextureView
 
     private lateinit var mBackgroundThread: HandlerThread
     private lateinit var mBackgroundHandler: Handler
@@ -54,23 +54,11 @@ class Camera2Activity : AppCompatActivity() {
     private var mSensorOrientation = 0
 
     private var ORIENTATIONS: SparseArray<Int> = SparseArray(4)
-    private lateinit var takePhotoBtn: Button
 
+    override fun layoutId(): Int = R.layout.activity_camera2
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_camera2)
-
-        ORIENTATIONS.append(Surface.ROTATION_0, 90)
-        ORIENTATIONS.append(Surface.ROTATION_90, 0)
-        ORIENTATIONS.append(Surface.ROTATION_180, 270)
-        ORIENTATIONS.append(Surface.ROTATION_270, 180)
-
-        startBackgroundThread()
-        initCameraManager()
-
-        textureView = findViewById(R.id.texture_View)
-        textureView.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
+    override fun initListener() {
+        texture_View.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
             override fun onSurfaceTextureSizeChanged(p0: SurfaceTexture?, p1: Int, p2: Int) {
 
             }
@@ -87,10 +75,19 @@ class Camera2Activity : AppCompatActivity() {
                 openCamera()
             }
         }
-        takePhotoBtn = findViewById(R.id.take_photo)
-        takePhotoBtn.setOnClickListener {
+        take_photo.setOnClickListener {
             lockFocus()
         }
+    }
+
+    override fun initData() {
+        ORIENTATIONS.append(Surface.ROTATION_0, 90)
+        ORIENTATIONS.append(Surface.ROTATION_90, 0)
+        ORIENTATIONS.append(Surface.ROTATION_180, 270)
+        ORIENTATIONS.append(Surface.ROTATION_270, 180)
+
+        startBackgroundThread()
+        initCameraManager()
     }
 
     private fun startBackgroundThread() {
@@ -211,7 +208,7 @@ class Camera2Activity : AppCompatActivity() {
     }
 
     private fun createCameraPreviewSession() {
-        val surfaceTexture = textureView.surfaceTexture
+        val surfaceTexture = texture_View.surfaceTexture
         surfaceTexture.setDefaultBufferSize(getPreviewSize().width, getPreviewSize().height)
 
         val surface = Surface(surfaceTexture)
@@ -231,7 +228,7 @@ class Camera2Activity : AppCompatActivity() {
                         mCaptureSession?.setRepeatingRequest(mPreviewRequest,
                                 captureCallback, mBackgroundHandler)
                         this@Camera2Activity.runOnUiThread {
-                            takePhotoBtn.visibility = View.VISIBLE
+                            take_photo.visibility = View.VISIBLE
                         }
                     }
                 }, null)

@@ -1,18 +1,16 @@
 package com.example.surfaceview.ui
 
 import android.content.Intent
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import com.example.surfaceview.R
+import com.example.surfaceview.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_index.*
 
-class IndexActivity : AppCompatActivity() {
+class IndexActivity : BaseActivity() {
     private lateinit var mIntent: Intent
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_index)
+    override fun layoutId(): Int = R.layout.activity_index
 
+    override fun initListener() {
         surface.setOnClickListener {
             mIntent = Intent(this@IndexActivity, SurfaceActivity::class.java)
             startActivity(mIntent)
@@ -32,5 +30,9 @@ class IndexActivity : AppCompatActivity() {
             mIntent = Intent(this@IndexActivity, Camera2Activity::class.java)
             startActivity(mIntent)
         }
+    }
+
+    override fun initData() {
+
     }
 }

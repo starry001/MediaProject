@@ -1,12 +1,12 @@
 package com.example.surfaceview.ui;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.graphics.Point;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -26,7 +26,7 @@ import com.example.surfaceview.util.DataUtils;
 import com.example.surfaceview.view.FocusView;
 
 @SuppressWarnings("deprecation")
-public class CustomCameraActivity extends Activity implements View.OnClickListener, Camera.AutoFocusCallback, Camera.PictureCallback {
+public class CustomCameraActivity extends AppCompatActivity implements View.OnClickListener, Camera.AutoFocusCallback, Camera.PictureCallback {
 
     private SurfaceView surfaceView;
     private Button takePhotoBtn;
