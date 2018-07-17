@@ -30,6 +30,16 @@ class IndexActivity : BaseActivity() {
             mIntent = Intent(this@IndexActivity, Camera2Activity::class.java)
             startActivity(mIntent)
         }
+
+        mediaPlayer.setOnClickListener {
+            mIntent = Intent(this@IndexActivity, MediaPlayerActivity::class.java)
+            startActivity(mIntent)
+        }
+
+        media_split.setOnClickListener {
+            mIntent = Intent(this@IndexActivity, MediaApplicationActivity::class.java)
+            startActivity(mIntent)
+        }
     }
 
     override fun initData() {

@@ -6,6 +6,8 @@ import com.example.surfaceview.util.WindEar
 import com.example.surfaceview.util.showToast
 import kotlinx.android.synthetic.main.activity_audio.*
 
+
+
 class AudioActivity : BaseActivity() ,WindEar.OnState{
 
     override fun layoutId(): Int  = R.layout.activity_audio

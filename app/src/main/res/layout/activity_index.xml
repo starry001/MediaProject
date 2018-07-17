@@ -34,5 +34,17 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="camera2" />
+
+        <Button
+            android:id="@+id/mediaPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="media player" />
+
+        <Button
+            android:id="@+id/media_split"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="音视频分离" />
     </LinearLayout>
 </ScrollView>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.MediaApplicationActivity">
+
+    <Button
+        android:id="@+id/split_all"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="分离音视频" />
+
+    <Button
+        android:id="@+id/split_audio"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="分离音频" />
+
+    <Button
+        android:id="@+id/split_video"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="分离视频" />
+
+    <Button
+        android:id="@+id/combine"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="合成音视频" />
+
+</LinearLayout>

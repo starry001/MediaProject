@@ -18,3 +18,7 @@ fun Activity.logger(msg: String?) {
     Log.e("logger", msg)
 }
 
+fun Any.logger(msg: String?) {
+    Log.e("logger", msg)
+}
+
