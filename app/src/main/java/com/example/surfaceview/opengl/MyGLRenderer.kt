@@ -95,8 +95,10 @@ class MyGLRenderer : GLSurfaceView.Renderer {
             val shader = GLES31.glCreateShader(type)
 
             //add the source to the shader and compile it
-            GLES31.glShaderSource(shader, shaderCode)
-            GLES31.glCompileShader(shader)
+            if (shader != 0) {
+                GLES31.glShaderSource(shader, shaderCode)
+                GLES31.glCompileShader(shader)
+            }
 
             return shader
         }

@@ -24,12 +24,13 @@ class Triangle {
         // 设置每个顶点的坐标数
         private const val COORDS_PRE_VERTEX = 3
 
-        // 默认按逆时针方向顺序绘制
+        // 各个定点坐标  默认按逆时针方向顺序绘制
         private val triangleCoords = floatArrayOf(
                 0.0F, 0.5F, 0.0F, // top
                 -0.5F, -0.5F, 0.0F,// bottom left
                 0.5F, -0.5F, 0.0F   // top right
         )
+        // 顶点数
         private val vertexCount = triangleCoords.size / COORDS_PRE_VERTEX
         // 4 byte pre vertex
         private const val vertexStride = COORDS_PRE_VERTEX * 4
@@ -52,12 +53,13 @@ class Triangle {
         )
         bb.order(ByteOrder.nativeOrder())
         vertexBuffer = bb.asFloatBuffer()
-        vertexBuffer.put(triangleCoords)
+        vertexBuffer.put(triangleCoords)//保存顶点坐标数据
         vertexBuffer.position(0)
 
 
-        // prepare shaders and OpenGL program
+        // 顶点着色器
         val vertexShader = MyGLRenderer.loadShader(GLES31.GL_VERTEX_SHADER, vertexShaderCode)
+        // 片元着色器
         val fragmentShader = MyGLRenderer.loadShader(GLES31.GL_FRAGMENT_SHADER, fragmentShaderCode)
 
         //create an empty program
@@ -77,14 +79,21 @@ class Triangle {
         mPositionHandle = GLES31.glGetAttribLocation(mProgram, "vPosition")
         // 允许顶点位置数据数组
         GLES31.glEnableVertexAttribArray(mPositionHandle)
+
         // 为画笔指定顶点位置数据
         GLES31.glVertexAttribPointer(mPositionHandle, COORDS_PRE_VERTEX,
                 GLES31.GL_FLOAT, false, vertexStride, vertexBuffer)
+
+
         mColorHandle = GLES31.glGetUniformLocation(mProgram, "vColor")
         //set color for draw the triangle
         GLES31.glUniform4fv(mColorHandle, 1, color, 0)
+
+
         mMVPMatrixHandle = GLES31.glGetUniformLocation(mProgram, "uMVPMatrix")
         MyGLRenderer.checkGLError("glGetUniformLocation")
+
+
         //apply the projection and view transformation
         GLES31.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0)
         MyGLRenderer.checkGLError("glUniformMatrix4fv")

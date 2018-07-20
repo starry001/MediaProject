@@ -21,7 +21,7 @@ class Square {
                         "void main() {" +
                         " gl_FragColor = vColor;" +
                         "}"
-        // number of coodinates pre vertex in this array
+        // 每个顶点需要的坐标
         private const val COORDS_PRE_VERTEX = 3
 
         private val squareCoords = floatArrayOf(
@@ -32,7 +32,7 @@ class Square {
         )
         // order to draw vertices
         private val drawOrder = shortArrayOf(0, 1, 2, 0, 2, 3)
-        //4 byte pre vertex
+        // 每个顶点坐标的byte大小
         private const val vertexStride = COORDS_PRE_VERTEX * 4
         private val color = floatArrayOf(
                 0.5F, 0.5F, 0.5F, 1.0F
