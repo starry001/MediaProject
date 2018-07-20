@@ -23,7 +23,7 @@ class MyGLRenderer : GLSurfaceView.Renderer {
 
     override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
         Log.e(TAG, "onSurfaceCreated")
-        // 设置背景颜色
+        // 设置清屏颜色
         GLES31.glClearColor(255.0f, 255.0f, 255.0f, 1.0f)//OpenGL支持两种颜色模式：一种是RGBA
 
         mTriangle = Triangle() //定义一个三角形
@@ -34,7 +34,8 @@ class MyGLRenderer : GLSurfaceView.Renderer {
         Log.e(TAG, "onDrawFrame")
         val scratch = FloatArray(16)
 
-        // 画背景颜色
+        //调用glClear(GL10.GL_COLOR_BUFFER_BIT)方法清除屏幕颜色,执行这个方法之后
+        //屏幕就会渲染之前通过glClearColor设置的清屏颜色.
         GLES31.glClear(GLES31.GL_COLOR_BUFFER_BIT or GLES31.GL_DEPTH_BUFFER_BIT)
 
         // Set the camera position (View matrix)
@@ -69,7 +70,7 @@ class MyGLRenderer : GLSurfaceView.Renderer {
 
     override fun onSurfaceChanged(unused: GL10, width: Int, height: Int) {
         Log.e(TAG, "onSurfaceChanged")
-        // 调整视点的几何变化,如屏幕旋转
+        // 设置窗口大小 调整视点的几何变化,如屏幕旋转
         GLES31.glViewport(0, 0, width, height)
 
         val ratio = width.toFloat() / height

@@ -35,7 +35,7 @@ class Square {
         //4 byte pre vertex
         private const val vertexStride = COORDS_PRE_VERTEX * 4
         private val color = floatArrayOf(
-                0.2F, 0.709803922F, 0.898039216F, 1.0F
+                0.5F, 0.5F, 0.5F, 1.0F
         )
     }
 
@@ -72,32 +72,25 @@ class Square {
 
         //create an empty program
         mProgram = GLES31.glCreateProgram()
-        // add te vertex shader to program
-        GLES31.glAttachShader(mProgram, vertexShader)
-        // add the fragment shader to program
-        GLES31.glAttachShader(mProgram, fragmentShader)
 
-        //create OpenGL program executable
+        GLES31.glAttachShader(mProgram, vertexShader)
+        GLES31.glAttachShader(mProgram, fragmentShader)
         GLES31.glLinkProgram(mProgram)
     }
 
     fun draw(mvpMatrix: FloatArray) {
         //add program to the OpenGL environment
         GLES31.glUseProgram(mProgram)
-        //get handle to vertex shader's vPosition mumber
         mPositionHandle = GLES31.glGetAttribLocation(mProgram, "vPosition")
         //enable the triangle coordinate data
         GLES31.glEnableVertexAttribArray(mPositionHandle)
         //prepare the triangle coordinate data
         GLES31.glVertexAttribPointer(mPositionHandle, COORDS_PRE_VERTEX,
                 GLES31.GL_FLOAT, false, vertexStride, vertexBuffer)
-
-        //get handle to fragment shader's vColor mumber
-        mColorHandle = GLES31.glGetUniformLocation(mProgram, "vColor")
         //set color for draw the triangle
+        mColorHandle = GLES31.glGetUniformLocation(mProgram, "vColor")
         GLES31.glUniform4fv(mColorHandle, 1, color, 0)
 
-        //get handle to shape's transformation matrix
         mMVPMatrixHandle = GLES31.glGetUniformLocation(mProgram, "uMVPMatrix")
         MyGLRenderer.checkGLError("glGetUniformLocation")
 

@@ -22,6 +22,7 @@ class MyGLSurfaceView(context: Context) : GLSurfaceView(context) {
         setRenderer(mRenderer)
 
         // Render the view only when there is a change in the drawing data
+        // 不会主动绘制,也就是当调用GLSurfaceView的requestRender()方法后才会执行一次(第一次运行的时候会自动绘制一次)
         renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
     }
 
