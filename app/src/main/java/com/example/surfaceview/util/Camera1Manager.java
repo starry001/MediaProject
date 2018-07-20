@@ -22,9 +22,9 @@ public class Camera1Manager {
     private Camera camera;
     private MediaPlayer mShootSound;
 
-    public static final int TYPE_PREVIEW = 0;
+    private static final int TYPE_PREVIEW = 0;
     public static final int TYPE_PICTURE = 1;
-    public static final int ALLOW_PIC_LEN = 2000;       //最大允许的照片尺寸的长度   宽或者高
+    private static final int ALLOW_PIC_LEN = 2000;       //最大允许的照片尺寸的长度   宽或者高
 
     private int cameraPosition;
 
@@ -41,10 +41,6 @@ public class Camera1Manager {
 
     /**
      * 打开摄像头
-     *
-     * @param holder
-     * @param autoFocusCallback
-     * @param degree
      */
     public void openCamera(SurfaceHolder holder, Camera.AutoFocusCallback autoFocusCallback, int degree) {
         try {
@@ -58,7 +54,7 @@ public class Camera1Manager {
             camera.autoFocus(autoFocusCallback);
 
         } catch (Exception e) {
-                e.printStackTrace();
+            e.printStackTrace();
             camera.release();
             camera = null;
         }
@@ -79,7 +75,7 @@ public class Camera1Manager {
                 //不能与setPreviewSize一起使用，否则setParamters会报错
 //                    parameters.setPreviewFrameRate(5);//设置每秒显示4帧
                 parameters.setJpegQuality(80);// 设置照片质量
-                Camera.Size pictureSize = null;
+                Camera.Size pictureSize;
                 if (equalRate(screenWidth, screenHeight, 1.33f)) {
                     pictureSize = findFitPicResolution(parameters, (float) 4 / 3);
                 } else {
@@ -97,19 +93,11 @@ public class Camera1Manager {
 
     private boolean equalRate(int width, int height, float rate) {
         float r = (float) width / (float) height;
-        if (Math.abs(r - rate) <= 0.2) {
-            return true;
-        } else {
-            return false;
-        }
+        return Math.abs(r - rate) <= 0.2;
     }
 
     /**
      * 摄像头切换
-     *
-     * @param holder
-     * @param autoFocusCallback
-     * @param degree
      */
     public void turnCamera(SurfaceHolder holder, Camera.AutoFocusCallback autoFocusCallback, int degree, int screenWidth, int screenHeight) {
         //切换前后摄像头
@@ -167,7 +155,7 @@ public class Camera1Manager {
             return false;
         }
 
-        Camera.Parameters parameters = null;
+        Camera.Parameters parameters;
         try {
             parameters = camera.getParameters();
         } catch (Exception e) {
@@ -178,7 +166,7 @@ public class Camera1Manager {
         if (parameters.getMaxNumFocusAreas() <= 0) {
             return false;
         }
-        List<Camera.Area> areas = new ArrayList<Camera.Area>();
+        List<Camera.Area> areas = new ArrayList<>();
 
         int left = point.x - 300;
         int top = point.y - 300;
@@ -215,14 +203,11 @@ public class Camera1Manager {
 
     /**
      * 拍照
-     *
-     * @param context
-     * @param pictureCallback
      */
     public void takePicture(final Context context, Camera.PictureCallback pictureCallback) {
         if (camera != null) {
             //拍照
-            try{
+            try {
                 camera.takePicture(new Camera.ShutterCallback() {
                     @Override
                     public void onShutter() {
@@ -242,7 +227,7 @@ public class Camera1Manager {
                         }
                     }
                 }, null, pictureCallback);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

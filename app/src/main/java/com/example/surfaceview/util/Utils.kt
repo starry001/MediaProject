@@ -8,6 +8,7 @@ import android.text.TextUtils
 import java.lang.Exception
 
 object Utils {
+    //是否强支持camera2
     fun isSupportCamera2(context: Context): Boolean {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {
             return false
@@ -20,7 +21,7 @@ object Utils {
                 return false
             }
             for (id in cameraIdList) {
-                if (TextUtils.isEmpty(id)){
+                if (TextUtils.isEmpty(id)) {
                     isFullSupport = false
                     break
                 }

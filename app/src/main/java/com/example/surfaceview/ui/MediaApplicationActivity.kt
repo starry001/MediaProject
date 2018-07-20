@@ -5,6 +5,7 @@ import com.example.surfaceview.base.BaseActivity
 import com.example.surfaceview.util.Constant
 import com.example.surfaceview.util.MediaUtils
 import kotlinx.android.synthetic.main.activity_media_application.*
+import kotlinx.coroutines.experimental.launch
 
 class MediaApplicationActivity : BaseActivity() {
 
@@ -13,19 +14,27 @@ class MediaApplicationActivity : BaseActivity() {
 
     override fun initListener() {
         split_all.setOnClickListener {
-            MediaUtils.getInstance().exactorMedia()
+            launch {
+                MediaUtils.getInstance().exactorMedia()
+            }
         }
 
         split_audio.setOnClickListener {
-            MediaUtils.getInstance().muxerAudio(Constant.SDCARD_PATH + "/" + Constant.MP4_NAME)
+            launch {
+                MediaUtils.getInstance().muxerAudio(Constant.SDCARD_PATH + "/" + Constant.MP4_NAME)
+            }
         }
 
         split_video.setOnClickListener {
-            MediaUtils.getInstance().muxerMedia(Constant.SDCARD_PATH + "/" + Constant.MP4_NAME)
+            launch {
+                MediaUtils.getInstance().muxerMedia(Constant.SDCARD_PATH + "/" + Constant.MP4_NAME)
+            }
         }
 
         combine.setOnClickListener {
-            MediaUtils.getInstance().combineVideo()
+            launch {
+                MediaUtils.getInstance().combineVideo()
+            }
         }
     }
 

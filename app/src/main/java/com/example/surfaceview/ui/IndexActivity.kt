@@ -40,6 +40,11 @@ class IndexActivity : BaseActivity() {
             mIntent = Intent(this@IndexActivity, MediaApplicationActivity::class.java)
             startActivity(mIntent)
         }
+
+        opengl.setOnClickListener {
+            mIntent = Intent(this@IndexActivity, OpenGLESActivity::class.java)
+            startActivity(mIntent)
+        }
     }
 
     override fun initData() {

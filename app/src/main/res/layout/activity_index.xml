@@ -46,5 +46,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="音视频分离" />
+
+        <Button
+            android:id="@+id/opengl"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="OpenGL ES" />
     </LinearLayout>
 </ScrollView>
