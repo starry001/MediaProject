@@ -3,6 +3,8 @@ package com.example.surfaceview.ui
 import android.content.Intent
 import com.example.surfaceview.R
 import com.example.surfaceview.base.BaseActivity
+import com.example.surfaceview.util.JNIUtils
+import com.example.surfaceview.util.logger
 import kotlinx.android.synthetic.main.activity_index.*
 
 class IndexActivity : BaseActivity() {
@@ -48,6 +50,7 @@ class IndexActivity : BaseActivity() {
     }
 
     override fun initData() {
-
+        val str = JNIUtils.stringFromJNI()
+        logger(str)
     }
 }
