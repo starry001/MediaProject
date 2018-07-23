@@ -5,7 +5,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.surfaceview.opengl.MyGLSurfaceView
 
-class OpenGLESActivity : AppCompatActivity() {
+//绘制图形
+class OpenGLES01Activity : AppCompatActivity() {
     private var mGLView: GLSurfaceView? = null
 
 

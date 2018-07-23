@@ -42,7 +42,7 @@ class IndexActivity : BaseActivity() {
         }
 
         opengl.setOnClickListener {
-            mIntent = Intent(this@IndexActivity, OpenGLESActivity::class.java)
+            mIntent = Intent(this@IndexActivity, OpenGLMainActivity::class.java)
             startActivity(mIntent)
         }
     }

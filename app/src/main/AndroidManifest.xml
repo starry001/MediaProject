@@ -33,14 +33,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.SurfaceActivity" />
-        <activity android:name=".ui.AudioActivity" />
-        <activity android:name=".ui.CameraActivity" />
-        <activity android:name=".ui.CustomCameraActivity" />
-        <activity android:name=".ui.Camera2Activity" />
-        <activity android:name=".ui.MediaPlayerActivity" />
-        <activity android:name=".ui.MediaApplicationActivity" />
-        <activity android:name=".ui.OpenGLESActivity"></activity>
+        <activity
+            android:name=".ui.SurfaceActivity"
+            android:label="surface 绘图" />
+        <activity
+            android:name=".ui.AudioActivity"
+            android:label="音频" />
+        <activity
+            android:name=".ui.CameraActivity"
+            android:label="camera" />
+        <activity
+            android:name=".ui.CustomCameraActivity"
+            android:label="cmaera" />
+        <activity
+            android:name=".ui.Camera2Activity"
+            android:label="camera 2" />
+        <activity
+            android:name=".ui.MediaPlayerActivity"
+            android:label="Media 播放" />
+        <activity
+            android:name=".ui.MediaApplicationActivity"
+            android:label="Media 应用" />
+        <activity
+            android:name=".ui.OpenGLES01Activity"
+            android:label="OpenGL ES 绘制图形" />
+        <activity
+            android:name=".ui.OpenGLES02Activity"
+            android:label="坐标变换" />
+        <activity
+            android:name=".ui.OpenGLMainActivity"
+            android:label="OpenGL ES" />
     </application>
 
 </manifest>

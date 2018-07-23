@@ -67,8 +67,8 @@ class Square {
         drawListBuffer.position(0)
 
         // prepare shaders and OpenGL program
-        val vertexShader = MyGLRenderer.loadShader(GLES31.GL_VERTEX_SHADER, vertexShaderCode)
-        val fragmentShader = MyGLRenderer.loadShader(GLES31.GL_FRAGMENT_SHADER, fragmentShaderCode)
+        val vertexShader = My01GLRenderer.loadShader(GLES31.GL_VERTEX_SHADER, vertexShaderCode)
+        val fragmentShader = My01GLRenderer.loadShader(GLES31.GL_FRAGMENT_SHADER, fragmentShaderCode)
 
         //create an empty program
         mProgram = GLES31.glCreateProgram()
@@ -92,11 +92,11 @@ class Square {
         GLES31.glUniform4fv(mColorHandle, 1, color, 0)
 
         mMVPMatrixHandle = GLES31.glGetUniformLocation(mProgram, "uMVPMatrix")
-        MyGLRenderer.checkGLError("glGetUniformLocation")
+        My01GLRenderer.checkGLError("glGetUniformLocation")
 
         //apply the projection and view transformation
         GLES31.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0)
-        MyGLRenderer.checkGLError("glUniformMatrix4fv")
+        My01GLRenderer.checkGLError("glUniformMatrix4fv")
 
         //draw the square
         GLES31.glDrawElements(GLES31.GL_TRIANGLES, drawOrder.size,GLES31.GL_UNSIGNED_SHORT,drawListBuffer)

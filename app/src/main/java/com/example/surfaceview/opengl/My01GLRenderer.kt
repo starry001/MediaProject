@@ -7,7 +7,7 @@ import android.util.Log
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
-class MyGLRenderer : GLSurfaceView.Renderer {
+class My01GLRenderer : GLSurfaceView.Renderer {
     private var mSquare: Square? = null
     private var mTriangle: Triangle? = null
 

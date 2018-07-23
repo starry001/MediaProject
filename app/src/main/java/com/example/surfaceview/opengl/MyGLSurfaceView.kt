@@ -6,7 +6,7 @@ import android.view.MotionEvent
 
 class MyGLSurfaceView(context: Context) : GLSurfaceView(context) {
 
-    private val mRenderer: MyGLRenderer
+    private val mRenderer: My01GLRenderer
 
     private val TOUCH_SCALE_FACTOR = 180.0f / 320
     private var mPreviousX: Float = 0.toFloat()
@@ -18,7 +18,7 @@ class MyGLSurfaceView(context: Context) : GLSurfaceView(context) {
         setEGLContextClientVersion(3)
 
         // Set the Renderer for drawing on the GLSurfaceView
-        mRenderer = MyGLRenderer()
+        mRenderer = My01GLRenderer()
         setRenderer(mRenderer)
 
         // Render the view only when there is a change in the drawing data

@@ -51,6 +51,8 @@ class Triangle {
         val bb = ByteBuffer.allocateDirect(
                 triangleCoords.size * 4 //一个float 4个字节
         )
+        //设置字节顺序
+        //nativeOrder()返回本地jvm运行的硬件的字节顺序.使用和硬件一致的字节顺序可能使buffer更加有效
         bb.order(ByteOrder.nativeOrder())
         vertexBuffer = bb.asFloatBuffer()
         vertexBuffer.put(triangleCoords)//保存顶点坐标数据
@@ -58,9 +60,9 @@ class Triangle {
 
 
         // 顶点着色器
-        val vertexShader = MyGLRenderer.loadShader(GLES31.GL_VERTEX_SHADER, vertexShaderCode)
+        val vertexShader = My01GLRenderer.loadShader(GLES31.GL_VERTEX_SHADER, vertexShaderCode)
         // 片元着色器
-        val fragmentShader = MyGLRenderer.loadShader(GLES31.GL_FRAGMENT_SHADER, fragmentShaderCode)
+        val fragmentShader = My01GLRenderer.loadShader(GLES31.GL_FRAGMENT_SHADER, fragmentShaderCode)
 
         //create an empty program
         mProgram = GLES31.glCreateProgram()
@@ -91,12 +93,12 @@ class Triangle {
 
 
         mMVPMatrixHandle = GLES31.glGetUniformLocation(mProgram, "uMVPMatrix")
-        MyGLRenderer.checkGLError("glGetUniformLocation")
+        My01GLRenderer.checkGLError("glGetUniformLocation")
 
 
         //apply the projection and view transformation
         GLES31.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0)
-        MyGLRenderer.checkGLError("glUniformMatrix4fv")
+        My01GLRenderer.checkGLError("glUniformMatrix4fv")
         //draw the triangle
         GLES31.glDrawArrays(GLES31.GL_TRIANGLES, 0, vertexCount)
 
