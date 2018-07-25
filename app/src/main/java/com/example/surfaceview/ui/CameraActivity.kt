@@ -8,7 +8,7 @@ import android.view.SurfaceHolder
 import com.example.surfaceview.R
 import com.example.surfaceview.base.BaseActivity
 import com.example.surfaceview.util.ImageUtils
-import com.example.surfaceview.util.logger
+import com.example.surfaceview.extention.logger
 import kotlinx.android.synthetic.main.activity_camera.*
 
 @Suppress("DEPRECATION")

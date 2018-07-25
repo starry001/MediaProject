@@ -3,7 +3,7 @@ package com.example.surfaceview.ui
 import com.example.surfaceview.R
 import com.example.surfaceview.base.BaseActivity
 import com.example.surfaceview.util.WindEar
-import com.example.surfaceview.util.showToast
+import com.example.surfaceview.extention.showToast
 import kotlinx.android.synthetic.main.activity_audio.*
 
 

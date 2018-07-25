@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.surfaceview.R
+import com.example.surfaceview.extention.jump
 import kotlinx.android.synthetic.main.activity_main_opengl.*
 
 class OpenGLMainActivity:AppCompatActivity() {
@@ -14,13 +15,11 @@ class OpenGLMainActivity:AppCompatActivity() {
         setContentView(R.layout.activity_main_opengl)
 
         opengl_01.setOnClickListener {
-            mIntent = Intent(this@OpenGLMainActivity, OpenGLES01Activity::class.java)
-            startActivity(mIntent)
+            jump<OpenGLES01Activity>()
         }
 
         opengl_02.setOnClickListener {
-            mIntent = Intent(this@OpenGLMainActivity, OpenGLES02Activity::class.java)
-            startActivity(mIntent)
+            jump<OpenGLES02Activity>()
         }
     }
 }

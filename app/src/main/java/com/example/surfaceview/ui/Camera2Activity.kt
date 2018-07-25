@@ -6,12 +6,9 @@ import android.graphics.SurfaceTexture
 import android.hardware.camera2.*
 import android.media.Image
 import android.media.ImageReader
-import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
-import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
-import android.util.Log
 import android.util.Size
 import android.util.SparseArray
 import android.view.Surface
@@ -21,7 +18,7 @@ import com.example.surfaceview.R
 import com.example.surfaceview.base.BaseActivity
 import com.example.surfaceview.util.ImageUtils
 import com.example.surfaceview.util.Utils
-import com.example.surfaceview.util.logger
+import com.example.surfaceview.extention.logger
 import kotlinx.android.synthetic.main.activity_camera2.*
 import java.io.File
 import java.io.FileOutputStream
